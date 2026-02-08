@@ -1,0 +1,14 @@
+services:
+  team-portfolio:
+    build: .
+    container_name: team-portfolio
+    hostname: team-portfolio
+    restart: always
+    environment:
+      - NODE_ENV=production
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true

@@ -1,26 +1,184 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@plugin "tailwindcss-animate";
 
-@theme inline {
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+
+    to {
+      height: 0;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+:root {
+  /* Classic Light Theme (Warm/Elegant) */
+  --background: oklch(0.98 0.01 40);
+  /* Warm White/Cream */
+  --foreground: oklch(0.1 0.02 40);
+  /* Darker Charcoal */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.1 0.02 40);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.1 0.02 40);
+  --primary: oklch(0.45 0.15 70);
+  /* Deep Gold/Bronze */
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.95 0.02 70);
+  /* Light Gold Tint */
+  --secondary-foreground: oklch(0.45 0.15 70);
+  --muted: oklch(0.95 0.01 40);
+  --muted-foreground: oklch(0.4 0.02 40);
+  --accent: oklch(0.95 0.03 70);
+  --accent-foreground: oklch(0.45 0.15 70);
+  --destructive: oklch(0.4 0.15 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.9 0.02 40);
+  --input: oklch(0.9 0.02 40);
+  --ring: oklch(0.45 0.15 70);
+  --radius: 0.5rem;
+}
+
+.dark {
+  /* Classic Dark Theme (Rich/Luxury) - HIGHER CONTRAST */
+  --background: oklch(0.08 0.01 240);
+  /* Slightly lighter Black */
+  --foreground: oklch(0.98 0.01 40);
+  /* Bright White */
+  --card: oklch(0.12 0.01 240);
+  --card-foreground: oklch(0.98 0.01 40);
+  --popover: oklch(0.1 0.01 240);
+  --popover-foreground: oklch(0.98 0.01 40);
+  --primary: oklch(0.75 0.15 70);
+  /* Bright Gold */
+  --primary-foreground: oklch(0.1 0.05 40);
+  /* Dark text on gold button */
+  --secondary: oklch(0.2 0.05 70);
+  /* Dark Bronze */
+  --secondary-foreground: oklch(0.98 0.01 40);
+  --muted: oklch(0.15 0.01 240);
+  --muted-foreground: oklch(0.7 0.01 240);
+  /* Significantly Lighter muted text */
+  --accent: oklch(0.2 0.05 70);
+  --accent-foreground: oklch(0.98 0.01 40);
+  --destructive: oklch(0.4 0.15 25);
+  --destructive-foreground: oklch(0.98 0.01 40);
+  --border: oklch(0.2 0.02 240);
+  --input: oklch(0.2 0.02 240);
+  --ring: oklch(0.75 0.15 70);
+}
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+
+  @media (width >=--theme(--breakpoint-sm)) {
+    max-width: none;
+  }
+
+  @media (width >=1400px) {
+    max-width: 1400px;
+  }
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+    outline-color: var(--ring);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    background-image: radial-gradient(var(--color-primary) 1px, transparent 1px);
+    background-size: 50px 50px;
+    background-position: 0 0;
+    position: relative;
+  }
+
+  /* Overlay to soften the grid */
+  body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent, var(--background) 90%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+
+  ::selection {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+  }
 }
