@@ -56,8 +56,17 @@ export function Hero() {
                     scene={sceneUrl}
                     className="w-full h-full"
                 />
-                {/* Overlay to hide element (visible only >= 600px) */}
-                <div className="hidden min-[600px]:block absolute bottom-0 right-0 w-32 h-16 bg-[#030506] z-50 pointer-events-none" />
+                {/* Spline Attribution Badge */}
+                <div className="flex absolute bottom-4 right-4 items-center gap-2 px-5 py-2.5 bg-[#030506]/90 backdrop-blur-md rounded-full border border-primary/20 hover:border-primary/50 transition-colors shadow-lg z-50">
+                    <span className="text-sm text-muted-foreground font-medium">Made by</span>
+                    <Link
+                        href="https://mhd12.dev"
+                        target="_blank"
+                        className="text-sm font-bold text-primary hover:text-amber-400 transition-colors"
+                    >
+                        mhd12
+                    </Link>
+                </div>
             </div>
 
             <SectionWrapper className="relative z-10 pointer-events-none">

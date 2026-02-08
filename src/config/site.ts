@@ -11,7 +11,7 @@ export const siteConfig = {
     ],
     links: {
         twitter: "https://twitter.com/alnoor_innovators",
-        github: "https://github.com/mhd12",
+        github: "https://github.com/mhd12e",
         contact: "mailto:innovators.alnoor@gmail.com",
     },
     keywords: ["Al Noor Innovators", "Web Development", "Team Portfolio", "Next.js", "React", "Creative Developers"],
@@ -32,7 +32,7 @@ export const siteConfig = {
             avatar: "/avatars/mohamed-elsayed.png",
             social: {
                 portfolio: "https://mhd12.dev",
-                github: "https://github.com/mhd12",
+                github: "https://github.com/mhd12e",
             },
         },
         {
