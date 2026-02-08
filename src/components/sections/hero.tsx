@@ -56,6 +56,8 @@ export function Hero() {
                     scene={sceneUrl}
                     className="w-full h-full"
                 />
+                {/* Overlay to hide element (visible only >= 600px) */}
+                <div className="hidden min-[600px]:block absolute bottom-0 right-0 w-32 h-16 bg-[#030506] z-50 pointer-events-none" />
             </div>
 
             <SectionWrapper className="relative z-10 pointer-events-none">
