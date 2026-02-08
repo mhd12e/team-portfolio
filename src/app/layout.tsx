@@ -55,8 +55,9 @@ export const metadata: Metadata = {
     creator: "@alnoor_innovators",
   },
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
+    icon: "/favicon.ico?v=2",
+    shortcut: "/favicon.ico?v=2",
+    apple: "/favicon.ico?v=2",
   },
   robots: {
     index: true,
