@@ -11,6 +11,9 @@ import Spline from '@splinetool/react-spline';
 import { LiquidText } from "@/components/ui/liquid-text";
 import { useState, useEffect } from "react";
 
+import { LoadingScreen } from "@/components/ui/loading-screen";
+import { AnimatePresence } from "framer-motion";
+
 export function Hero() {
     const { scrollY } = useScroll();
     const y = useTransform(scrollY, [0, 500], [0, 200]);
@@ -25,6 +28,7 @@ export function Hero() {
     const MOBILE_SCENE = "https://prod.spline.design/dgSvd8GhmIAB3B9g/scene.splinecode";
 
     const [sceneUrl, setSceneUrl] = useState(WIDE_SCENE);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const handleResize = () => {
@@ -48,16 +52,29 @@ export function Hero() {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
+    // Safety timeout to ensure loading screen doesn't stick forever
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 4000); // 4 seconds max load time
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
         <div className="relative h-screen min-h-screen flex items-center justify-center overflow-hidden pt-0">
+            <AnimatePresence>
+                {isLoading && <LoadingScreen />}
+            </AnimatePresence>
+
             {/* Spline 3D Background */}
             <div className="absolute inset-0 z-0">
                 <Spline
                     scene={sceneUrl}
                     className="w-full h-full"
+                    onLoad={() => setIsLoading(false)}
                 />
                 {/* Spline Attribution Badge */}
-                <div className="flex absolute bottom-4 right-4 items-center gap-2 px-5 py-2.5 bg-[#030506]/90 backdrop-blur-md rounded-full border border-primary/20 hover:border-primary/50 transition-colors shadow-lg z-50">
+                <div className="flex absolute bottom-5 right-5 items-center gap-2 px-5 py-2.5 bg-[#030506]/90 backdrop-blur-md rounded-full border border-primary/20 hover:border-primary/50 transition-colors shadow-lg z-50">
                     <span className="text-sm text-muted-foreground font-medium">Made by</span>
                     <Link
                         href="https://mhd12.dev"
@@ -135,3 +152,4 @@ export function Hero() {
         </div>
     );
 }
+

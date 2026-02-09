@@ -13,7 +13,12 @@ import { useTheme } from "next-themes";
 
 export function Navbar() {
     const [isScrolled, setIsScrolled] = React.useState(false);
+    const [isMounted, setIsMounted] = React.useState(false);
     const { scrollY } = useScroll();
+
+    React.useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     useMotionValueEvent(scrollY, "change", (latest) => {
         setIsScrolled(latest > 50);
@@ -56,30 +61,32 @@ export function Navbar() {
 
                 {/* Mobile Nav */}
                 <div className="md:hidden">
-                    <Sheet>
-                        <SheetTrigger asChild>
-                            <Button variant="ghost" size="icon">
-                                <Menu className="h-5 w-5" />
-                                <span className="sr-only">Toggle menu</span>
-                            </Button>
-                        </SheetTrigger>
-                        <SheetContent side="right">
-                            <nav className="flex flex-col gap-4 mt-8">
-                                {siteConfig.nav.map((item) => (
-                                    <Link
-                                        key={item.href}
-                                        href={item.href}
-                                        className="text-lg font-medium hover:text-primary transition-colors"
-                                    >
-                                        {item.title}
-                                    </Link>
-                                ))}
-                                <Button className="mt-4" asChild>
-                                    <Link href={siteConfig.links.contact}>Contact Us</Link>
+                    {isMounted && (
+                        <Sheet>
+                            <SheetTrigger asChild>
+                                <Button variant="ghost" size="icon">
+                                    <Menu className="h-5 w-5" />
+                                    <span className="sr-only">Toggle menu</span>
                                 </Button>
-                            </nav>
-                        </SheetContent>
-                    </Sheet>
+                            </SheetTrigger>
+                            <SheetContent side="right">
+                                <nav className="flex flex-col gap-4 mt-8">
+                                    {siteConfig.nav.map((item) => (
+                                        <Link
+                                            key={item.href}
+                                            href={item.href}
+                                            className="text-lg font-medium hover:text-primary transition-colors"
+                                        >
+                                            {item.title}
+                                        </Link>
+                                    ))}
+                                    <Button className="mt-4" asChild>
+                                        <Link href={siteConfig.links.contact}>Contact Us</Link>
+                                    </Button>
+                                </nav>
+                            </SheetContent>
+                        </Sheet>
+                    )}
                 </div>
             </div>
         </motion.header>
